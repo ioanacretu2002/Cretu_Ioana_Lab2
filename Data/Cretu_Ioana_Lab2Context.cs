@@ -21,5 +21,6 @@ namespace Cretu_Ioana_Lab2.Data
         public DbSet<Cretu_Ioana_Lab2.Models.Author>? Author { get; set; }
 
         public DbSet<Cretu_Ioana_Lab2.Models.Category>? Category { get; set; }
+        public object BookCategory { get; internal set; }
     }
 }

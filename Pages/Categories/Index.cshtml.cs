@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Cretu_Ioana_Lab2.Data;
 using Cretu_Ioana_Lab2.Models;
+using Cretu_Ioana_Lab2.Models.ViewModels;
+using System.Security.Policy;
 
 namespace Cretu_Ioana_Lab2.Pages.Categories
 {
@@ -21,11 +23,31 @@ namespace Cretu_Ioana_Lab2.Pages.Categories
 
         public IList<Category> Category { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public CategoryIndexData CategoryData { get; set; }
+        public int CategoryID { get; set; }
+        public int BookID { get; set; }
+
+        public async Task OnGetAsync(int? id, int? bookID)
         {
-            if (_context.Category != null)
+            CategoryData = new CategoryIndexData();
+            CategoryData.Categories = await _context.Category
+            .Include(i => i.BookCategories) //ultima modificare, nu stiu daca e ok
+                .ThenInclude(i => i.Book)
+                    .ThenInclude(i => i.Author)
+            .OrderBy(i => i.CategoryName)
+            .ToListAsync();
+
+            if (id != null)
             {
-                Category = await _context.Category.ToListAsync();
+                CategoryID = id.Value;
+                var category = CategoryData.Categories
+                .SingleOrDefault(i => i.ID == id.Value);
+                if(category != null)
+                {
+                    CategoryData.Books = category.BookCategories.Select(b => b.Book).ToList();
+                }
+                
+
             }
         }
     }

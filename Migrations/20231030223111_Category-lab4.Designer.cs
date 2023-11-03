@@ -4,6 +4,7 @@ using Cretu_Ioana_Lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cretu_Ioana_Lab2.Migrations
 {
     [DbContext(typeof(Cretu_Ioana_Lab2Context))]
-    partial class Cretu_Ioana_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20231030223111_Category-lab4")]
+    partial class Categorylab4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +146,7 @@ namespace Cretu_Ioana_Lab2.Migrations
                         .WithMany("Books")
                         .HasForeignKey("AuthorID");
 
-                    b.HasOne("Cretu_Ioana_Lab2.Models.Category", null)
+                    b.HasOne("Cretu_Ioana_Lab2.Models.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryID");
 
@@ -153,6 +155,8 @@ namespace Cretu_Ioana_Lab2.Migrations
                         .HasForeignKey("PublisherID");
 
                     b.Navigation("Author");
+
+                    b.Navigation("Category");
 
                     b.Navigation("Publisher");
                 });
