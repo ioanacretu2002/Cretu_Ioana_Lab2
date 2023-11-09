@@ -22,5 +22,15 @@ namespace Cretu_Ioana_Lab2.Data
 
         public DbSet<Cretu_Ioana_Lab2.Models.Category>? Category { get; set; }
         public object BookCategory { get; internal set; }
+        public DbSet<Cretu_Ioana_Lab2.Models.Member>? Member { get; set; }
+        public DbSet<Cretu_Ioana_Lab2.Models.Borrowing>? Borrowing { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>()
+                .HasOne(e => e.Borrowing)
+            .WithOne(e => e.Book)
+                .HasForeignKey<Borrowing>("BookID");
+        }
+
     }
 }
