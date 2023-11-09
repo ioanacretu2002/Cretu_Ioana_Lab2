@@ -37,7 +37,10 @@ namespace Cretu_Ioana_Lab2.Pages.Borrowings
             }
             Borrowing = borrowing;
            ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
+           ViewData["BookTitle"] = new SelectList(_context.Book, "ID", "Title");
+           ViewData["BookAuthor"] = new SelectList(_context.Author, "ID", "AuthorName");
            ViewData["MemberID"] = new SelectList(_context.Member, "ID", "ID");
+           ViewData["MemberFullName"] = new SelectList(_context.Member,"ID","FullName");
             return Page();
         }
 
