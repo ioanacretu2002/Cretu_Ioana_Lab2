@@ -7,6 +7,8 @@ namespace Cretu_Ioana_Lab2.Models
     public class Book
     {
         public int ID { get; set; }
+        [Required(ErrorMessage = "Titlul cartii este obligatoriu.")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Titlul cartii trebuie sa fie intre 3 si 150 de caractere.")]
         [Display(Name = "Book Title")]
         public string Title { get; set; }
         [Column(TypeName = "decimal(6, 2)")]
